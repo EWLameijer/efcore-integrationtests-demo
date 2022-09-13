@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 namespace EFCoreIntTestSmith.Business;
+
 public class PhoneService
 {
     private readonly DataContext _context;

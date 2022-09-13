@@ -14,7 +14,8 @@
 //      *1b. Make Git repo for this project
 //      *2. Create Get(id)
 //      *3. Test Get (Console)
-//      4. tot p530:17.2 Study Smith WHOLE CHAPTER (making notes + drawing relationships on paper then CmapTools)
+//      *3a. seed test database
+//      4. tot p537:17.5.2 Study Smith WHOLE CHAPTER (making notes + drawing relationships on paper then CmapTools)
 //      5. Test Get (Full Db)
 
 // See https://aka.ms/new-console-template for more information

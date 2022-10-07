@@ -14,8 +14,8 @@ public class Get
         string connectionString = config.GetConnectionString("UnitTestConnection");
         DbContextOptionsBuilder<DataContext> builder = new();
         builder.UseSqlServer(connectionString);
-        using DataContext context = new DataContext(builder.Options);
-        PhoneService phoneService = new PhoneService(context);
+        using DataContext context = new(builder.Options);
+        PhoneService phoneService = new(context);
 
         // act
         Phone phone = phoneService.Get(1)!;

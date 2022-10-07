@@ -30,7 +30,7 @@ const string ConnectionString = "Data Source=(localdb)\\ProjectModels;" +
 DbContextOptionsBuilder<DataContext> builder = new();
 builder.UseSqlServer(ConnectionString);
 DbContextOptions<DataContext> options = builder.Options;
-PhoneService phoneService = new PhoneService(new DataContext(options));
+PhoneService phoneService = new(new DataContext(options));
 Phone? phone = phoneService.Get(4);
 Console.WriteLine(phone);
 Console.WriteLine("End program!");

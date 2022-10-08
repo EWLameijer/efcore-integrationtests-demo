@@ -27,10 +27,17 @@ const string ConnectionString = "Data Source=(localdb)\\ProjectModels;" +
         "Initial Catalog=EFCoreIntegrationTest;Integrated Security=True;Connect Timeout=30;" +
         "Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;" +
         "MultiSubnetFailover=False";
+
 DbContextOptionsBuilder<DataContext> builder = new();
 builder.UseSqlServer(ConnectionString);
 DbContextOptions<DataContext> options = builder.Options;
-PhoneService phoneService = new(new DataContext(options));
+DataContext context = new(options);
+
+// below code to ensure development database is updated after a migration
+// context.Database.EnsureDeleted();
+// context.Database.EnsureCreated();
+// context.SaveChanges();
+PhoneService phoneService = new(context);
 Phone? phone = phoneService.Get(4);
 Console.WriteLine(phone);
 Console.WriteLine("End program!");

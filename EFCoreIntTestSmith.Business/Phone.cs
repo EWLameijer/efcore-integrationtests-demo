@@ -10,5 +10,7 @@ public class Phone
 
     public int BrandId { get; set; }
 
-    public override string ToString() => $"{Brand.Name} {Type}";
+    public override string ToString() => $"{Brand.Name} {Type} ({Price})";
+
+    public decimal Price { get; set; }
 }

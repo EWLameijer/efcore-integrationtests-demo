@@ -13,4 +13,6 @@ public class Phone
     public override string ToString() => $"{Brand.Name} {Type} ({Price})";
 
     public decimal Price { get; set; }
+
+    public int Stock { get; set; }
 }

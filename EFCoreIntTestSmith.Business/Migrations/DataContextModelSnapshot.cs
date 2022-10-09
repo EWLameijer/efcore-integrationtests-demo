@@ -35,7 +35,7 @@ namespace EFCoreIntTestSmith.Business.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brands");
+                    b.ToTable("Brands", (string)null);
 
                     b.HasData(
                         new
@@ -88,7 +88,7 @@ namespace EFCoreIntTestSmith.Business.Migrations
 
                     b.HasIndex("BrandId");
 
-                    b.ToTable("Phones");
+                    b.ToTable("Phones", (string)null);
 
                     b.HasData(
                         new

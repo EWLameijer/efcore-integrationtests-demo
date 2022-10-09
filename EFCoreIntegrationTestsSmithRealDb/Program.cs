@@ -34,9 +34,9 @@ DbContextOptions<DataContext> options = builder.Options;
 DataContext context = new(options);
 
 // below code to ensure development database is updated after a migration
-// context.Database.EnsureDeleted();
-// context.Database.EnsureCreated();
-// context.SaveChanges();
+//context.Database.EnsureDeleted();
+//context.Database.EnsureCreated();
+//context.SaveChanges();
 PhoneService phoneService = new(context);
 Phone? phone = phoneService.Get(4);
 Console.WriteLine(phone);

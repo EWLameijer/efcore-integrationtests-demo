@@ -50,6 +50,7 @@ public class Delete
         context.Database.EnsureClean();
         PhoneService phoneService = new(context);
         phoneService.Add(new() { Type = "iPhone 13", Brand = new Brand { Name = "Apple" } });
+        context.ChangeTracker.Clear();
 
         // act
         phoneService.Delete(3);

@@ -14,11 +14,14 @@ public class DataContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        const string ConnectionString = "Data Source=(localdb)\\ProjectModels;" +
-        "Initial Catalog=EFCoreIntegrationTest;Integrated Security=True;Connect Timeout=30;" +
-        "Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;" +
-        "MultiSubnetFailover=False";
-        optionsBuilder.UseSqlServer(ConnectionString);
+        if (!optionsBuilder.IsConfigured)
+        {
+            const string ConnectionString = "Data Source=(localdb)\\ProjectModels;" +
+            "Initial Catalog=EFCoreIntegrationTest;Integrated Security=True;Connect Timeout=30;" +
+            "Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;" +
+            "MultiSubnetFailover=False";
+            optionsBuilder.UseSqlServer(ConnectionString);
+        }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

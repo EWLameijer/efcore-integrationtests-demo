@@ -11,7 +11,7 @@ public class Add
         // arrange
         DbContextOptions<DataContext> options = this.CreateUniqueClassOptions<DataContext>();
         using DataContext context = new(options);
-        context.Database.EnsureClean();
+        context.DefaultSetup();
         PhoneService phoneService = new(context);
         Phone iPhone = new() { Brand = new Brand { Name = "Apple" }, Type = "iPhone 11" };
 
@@ -28,7 +28,7 @@ public class Add
         // arrange
         DbContextOptions<DataContext> options = this.CreateUniqueClassOptions<DataContext>();
         using DataContext context = new(options);
-        context.Database.EnsureClean();
+        context.DefaultSetup();
         PhoneService phoneService = new(context);
         string brandName = "Apple";
         string typeName = "iPhone 13";
@@ -39,10 +39,9 @@ public class Add
 
         // assert
         int newBrandCount = phoneService.GetBrands().Count();
-        Assert.Equal(5, newBrandCount);
-        Assert.Equal(6, phoneService.Get().Count());
+        Assert.Equal(2, newBrandCount);
+        Assert.Equal(4, phoneService.Get().Count());
         Assert.NotNull(phoneService.GetByBrandAndType(brandName, typeName));
-
     }
 
     [Fact]
@@ -51,19 +50,19 @@ public class Add
         // arrange
         DbContextOptions<DataContext> options = this.CreateUniqueClassOptions<DataContext>();
         using DataContext context = new(options);
-        context.Database.EnsureClean();
+        context.DefaultSetup();
         PhoneService phoneService = new(context);
-        string brandName = "Pear";
-        string typeName = "MePhone 1";
-        Phone iPhone13 = new() { Brand = new Brand { Name = brandName }, Type = typeName };
 
         // act
-        phoneService.Add(iPhone13);
+        string brandName = "Pear";
+        string typeName = "MePhone 1";
+        Phone mePhone1 = new() { Brand = new Brand { Name = brandName }, Type = typeName };
+        phoneService.Add(mePhone1);
 
         // assert
         int newBrandCount = phoneService.GetBrands().Count();
-        Assert.Equal(6, newBrandCount);
-        Assert.Equal(6, phoneService.Get().Count());
+        Assert.Equal(3, newBrandCount);
+        Assert.Equal(4, phoneService.Get().Count());
         Assert.NotNull(phoneService.GetByBrandAndType(brandName, typeName));
     }
 }

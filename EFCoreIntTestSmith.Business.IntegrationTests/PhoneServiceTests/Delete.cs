@@ -2,6 +2,7 @@
 using TestSupport.EfHelpers;
 
 namespace EFCoreIntTestSmith.Business.IntegrationTests.PhoneServiceTests;
+
 public class Delete
 {
     [Fact]
@@ -10,7 +11,7 @@ public class Delete
         // arrange
         DbContextOptions<DataContext> options = this.CreateUniqueClassOptions<DataContext>();
         using DataContext context = new(options);
-        context.Database.EnsureClean();
+        context.DefaultSetup();
         PhoneService phoneService = new(context);
 
         // act
@@ -18,8 +19,8 @@ public class Delete
 
         // assert
         int newBrandCount = phoneService.GetBrands().Count();
-        Assert.Equal(4, newBrandCount);
-        Assert.Equal(4, phoneService.Get().Count());
+        Assert.Equal(1, newBrandCount);
+        Assert.Equal(2, phoneService.Get().Count());
     }
 
     [Fact]
@@ -28,7 +29,7 @@ public class Delete
         // arrange
         DbContextOptions<DataContext> options = this.CreateUniqueClassOptions<DataContext>();
         using DataContext context = new(options);
-        context.Database.EnsureClean();
+        context.DefaultSetup();
         PhoneService phoneService = new(context);
 
         // act
@@ -37,8 +38,8 @@ public class Delete
         // assert
         Assert.Throws<InvalidOperationException>(invalidDeletion);
         int newBrandCount = phoneService.GetBrands().Count();
-        Assert.Equal(5, newBrandCount);
-        Assert.Equal(5, phoneService.Get().Count());
+        Assert.Equal(2, newBrandCount);
+        Assert.Equal(3, phoneService.Get().Count());
     }
 
     [Fact]
@@ -47,17 +48,15 @@ public class Delete
         // arrange
         DbContextOptions<DataContext> options = this.CreateUniqueClassOptions<DataContext>();
         using DataContext context = new(options);
-        context.Database.EnsureClean();
+        context.DefaultSetup();
         PhoneService phoneService = new(context);
-        phoneService.Add(new() { Type = "iPhone 13", Brand = new Brand { Name = "Apple" } });
-        context.ChangeTracker.Clear();
 
         // act
-        phoneService.Delete(3);
+        phoneService.Delete(1);
 
         // assert
         int newBrandCount = phoneService.GetBrands().Count();
-        Assert.Equal(5, newBrandCount);
-        Assert.Equal(5, phoneService.Get().Count());
+        Assert.Equal(2, newBrandCount);
+        Assert.Equal(2, phoneService.Get().Count());
     }
 }

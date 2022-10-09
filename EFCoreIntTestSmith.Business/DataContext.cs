@@ -1,14 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 
 namespace EFCoreIntTestSmith.Business;
 
+[ExcludeFromCodeCoverage]
 public class DataContext : DbContext
 {
     public DbSet<Brand> Brands { get; set; } = null!;
 
     public DbSet<Phone> Phones { get; set; } = null!;
 
-    public DataContext() { }
+    public DataContext()
+    { }
 
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
@@ -29,56 +32,5 @@ public class DataContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Phone>().Property(x => x.Price).HasPrecision(9, 2);
-
-        Brand huawei = new() { Id = 1, Name = "Huawei" };
-        Brand samsung = new() { Id = 2, Name = "Samsung" };
-        Brand apple = new() { Id = 3, Name = "Apple" };
-        Brand google = new() { Id = 4, Name = "Google" };
-        Brand xiaomi = new() { Id = 5, Name = "Xiaomi" };
-
-        modelBuilder.Entity<Brand>().HasData(huawei, samsung, apple, google, xiaomi);
-
-        Phone p30 = new()
-        {
-            Id = 1,
-            BrandId = huawei.Id,
-            Type = "P30",
-            Price = 100M,
-            Stock = 20
-        };
-        Phone galaxy = new()
-        {
-            Id = 2,
-            BrandId = samsung.Id,
-            Type = "Galaxy A52",
-            Price = 200M,
-            Stock = 25
-        };
-        Phone iPhone = new()
-        {
-            Id = 3,
-            BrandId = apple.Id,
-            Type = "iPhone 11",
-            Price = 500M,
-            Stock = 0
-        };
-        Phone pixel = new()
-        {
-            Id = 4,
-            BrandId = google.Id,
-            Type = "Pixel 4a",
-            Price = 400M,
-            Stock = 15
-        };
-        Phone redmi = new()
-        {
-            Id = 5,
-            BrandId = xiaomi.Id,
-            Type = "Redmi Note 10 Pro",
-            Price = 300M,
-            Stock = 3
-        };
-
-        modelBuilder.Entity<Phone>().HasData(p30, galaxy, iPhone, pixel, redmi);
     }
 }

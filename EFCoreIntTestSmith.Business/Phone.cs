@@ -1,5 +1,8 @@
-﻿namespace EFCoreIntTestSmith.Business;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace EFCoreIntTestSmith.Business;
+
+[ExcludeFromCodeCoverage]
 public class Phone
 {
     public int Id { get; set; }

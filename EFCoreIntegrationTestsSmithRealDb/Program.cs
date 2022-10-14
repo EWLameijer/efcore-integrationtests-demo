@@ -23,10 +23,11 @@ using EFCoreIntTestSmith.Business;
 using Microsoft.EntityFrameworkCore;
 
 Console.WriteLine("Start program!");
-const string ConnectionString = "Data Source=(localdb)\\ProjectModels;" +
-        "Initial Catalog=EFCoreIntegrationTest;Integrated Security=True;Connect Timeout=30;" +
-        "Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;" +
-        "MultiSubnetFailover=False";
+const string ConnectionString = "Data Source=(localdb)\\MSSQLLocalDB;" +
+                                "Initial Catalog=EfCoreIntegrationTestDb;" +
+                                "Integrated Security=True;Connect Timeout=30;Encrypt=False;" +
+                                "TrustServerCertificate=False;ApplicationIntent=ReadWrite;" +
+                                "MultiSubnetFailover=False";
 DbContextOptionsBuilder<DataContext> builder = new();
 builder.UseSqlServer(ConnectionString);
 DbContextOptions<DataContext> options = builder.Options;

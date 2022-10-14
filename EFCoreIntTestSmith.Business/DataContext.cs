@@ -8,8 +8,25 @@ public class DataContext : DbContext
 
     public DbSet<Phone> Phones { get; set; } = null!;
 
+    public DataContext()
+    {
+    }
+
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            const string ConnectionString = "Data Source=(localdb)\\MSSQLLocalDB;" +
+                                            "Initial Catalog=EfCoreIntegrationTestDb;" +
+                                            "Integrated Security=True;Connect Timeout=30;Encrypt=False;" +
+                                            "TrustServerCertificate=False;ApplicationIntent=ReadWrite;" +
+                                            "MultiSubnetFailover=False";
+            optionsBuilder.UseSqlServer(ConnectionString);
+        }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

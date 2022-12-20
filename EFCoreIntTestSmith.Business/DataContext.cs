@@ -1,5 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace EFCoreIntTestSmith.Business;
 
@@ -21,10 +21,10 @@ public class DataContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            const string ConnectionString = "Data Source=(localdb)\\ProjectModels;" +
-            "Initial Catalog=EFCoreIntegrationTest;Integrated Security=True;Connect Timeout=30;" +
-            "Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;" +
-            "MultiSubnetFailover=False";
+            const string ConnectionString = "Data Source=sql1" +
+                                            "Database=PhoneShop;" +
+                                            "TrustServerCertificate=true;" +
+                                            "Password=<YourStrong@Passw0rd>;User Id=sa";
             optionsBuilder.UseSqlServer(ConnectionString);
         }
     }

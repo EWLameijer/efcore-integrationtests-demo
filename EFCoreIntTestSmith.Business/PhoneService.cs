@@ -1,4 +1,6 @@
-﻿namespace EFCoreIntTestSmith.Business;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace EFCoreIntTestSmith.Business;
 
 public class PhoneService
 {

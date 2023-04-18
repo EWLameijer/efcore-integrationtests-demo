@@ -7,4 +7,5 @@ public class Job
     public string Description { get; set; }
 
     public User Customer { get; set; }
+    public User Employee { get; set; }
 }

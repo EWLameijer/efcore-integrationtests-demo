@@ -1,5 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace EFCoreIntTestSmith.Business;
 
@@ -9,6 +9,8 @@ public class DataContext : DbContext
     public DbSet<Brand> Brands { get; set; } = null!;
 
     public DbSet<Phone> Phones { get; set; } = null!;
+    public DbSet<User> Users { get; set; } = null!;
+    public DbSet<Job> Jobs { get; set; } = null!;
 
     public DataContext()
     { }

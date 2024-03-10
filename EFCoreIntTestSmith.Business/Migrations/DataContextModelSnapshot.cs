@@ -23,28 +23,28 @@ namespace EFCoreIntTestSmith.Business.Migrations
 
             modelBuilder.Entity("EFCoreIntTestSmith.Business.Brand", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("BrandId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BrandId"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("BrandId");
 
                     b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("EFCoreIntTestSmith.Business.Phone", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("PhoneId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("PhoneId"));
 
                     b.Property<int>("BrandId")
                         .HasColumnType("int");
@@ -60,20 +60,35 @@ namespace EFCoreIntTestSmith.Business.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("PhoneId");
 
                     b.HasIndex("BrandId");
 
                     b.ToTable("Phones");
                 });
 
+            modelBuilder.Entity("EFCoreIntTestSmith.Business.PhoneTag", b =>
+                {
+                    b.Property<long>("PhoneId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TagId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("PhoneId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("PhoneTags");
+                });
+
             modelBuilder.Entity("EFCoreIntTestSmith.Business.Tag", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -82,21 +97,6 @@ namespace EFCoreIntTestSmith.Business.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
-                });
-
-            modelBuilder.Entity("PhoneTag", b =>
-                {
-                    b.Property<int>("PhoneId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PhoneId", "TagsId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("PhoneTag");
                 });
 
             modelBuilder.Entity("EFCoreIntTestSmith.Business.Phone", b =>
@@ -110,19 +110,33 @@ namespace EFCoreIntTestSmith.Business.Migrations
                     b.Navigation("Brand");
                 });
 
-            modelBuilder.Entity("PhoneTag", b =>
+            modelBuilder.Entity("EFCoreIntTestSmith.Business.PhoneTag", b =>
                 {
-                    b.HasOne("EFCoreIntTestSmith.Business.Phone", null)
-                        .WithMany()
+                    b.HasOne("EFCoreIntTestSmith.Business.Phone", "Phone")
+                        .WithMany("Tags")
                         .HasForeignKey("PhoneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EFCoreIntTestSmith.Business.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
+                    b.HasOne("EFCoreIntTestSmith.Business.Tag", "Tag")
+                        .WithMany("Phones")
+                        .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Phone");
+
+                    b.Navigation("Tag");
+                });
+
+            modelBuilder.Entity("EFCoreIntTestSmith.Business.Phone", b =>
+                {
+                    b.Navigation("Tags");
+                });
+
+            modelBuilder.Entity("EFCoreIntTestSmith.Business.Tag", b =>
+                {
+                    b.Navigation("Phones");
                 });
 #pragma warning restore 612, 618
         }

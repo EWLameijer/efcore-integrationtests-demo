@@ -12,7 +12,7 @@ public class PhoneService
     }
 
     public Phone? Get(int id) =>
-        _context.Phones.Include(p => p.Brand).SingleOrDefault(p => p.Id == id);
+        _context.Phones.Include(p => p.Brand).SingleOrDefault(p => p.PhoneId == id);
 
     public IEnumerable<Phone> Get() => _context.Phones.Include(p => p.Brand);
 
@@ -36,7 +36,7 @@ public class PhoneService
 
     public void Delete(int id)
     {
-        Phone phoneToDelete = _context.Phones.Single(p => p.Id == id);
+        Phone phoneToDelete = _context.Phones.Single(p => p.PhoneId == id);
         int brandId = phoneToDelete.BrandId;
         int numPhonesWithBrand = Get().Count(p => p.BrandId == brandId);
         _context.Phones.Remove(phoneToDelete);

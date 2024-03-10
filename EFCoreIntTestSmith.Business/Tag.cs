@@ -2,7 +2,9 @@
 
 public class Tag
 {
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     public string Description { get; set; } = null!;
+
+    public ICollection<PhoneTag> Phones { get; set; }
 }

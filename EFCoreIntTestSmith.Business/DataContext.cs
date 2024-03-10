@@ -12,6 +12,8 @@ public class DataContext : DbContext
 
     public DbSet<Tag> Tags { get; set; } = null!;
 
+    public DbSet<PhoneTag> PhoneTags { get; set; } = null!;
+
     public DataContext()
     { }
 
@@ -34,6 +36,10 @@ public class DataContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Phone>().Property(x => x.Price).HasPrecision(9, 2);
-        modelBuilder.Entity<Phone>().HasMany(e => e.Tags).WithMany();
+        modelBuilder.Entity<PhoneTag>().HasKey(pt => new { pt.PhoneId, pt.TagId });
+        modelBuilder.Entity<PhoneTag>().HasOne(p => p.Phone).WithMany(p => p.Tags).HasForeignKey(pt => pt.PhoneId);
+        modelBuilder.Entity<PhoneTag>().HasOne(p => p.Tag).WithMany(p => p.Phones).HasForeignKey(pt => pt.TagId);
+        modelBuilder.Entity<Phone>().Navigation(p => p.Tags).AutoInclude();
+        modelBuilder.Entity<PhoneTag>().Navigation(pt => pt.Tag).AutoInclude();
     }
 }

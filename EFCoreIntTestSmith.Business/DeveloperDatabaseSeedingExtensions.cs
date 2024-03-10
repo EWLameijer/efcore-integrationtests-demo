@@ -25,7 +25,6 @@ public static class DeveloperDatabaseSeedingExtensions
             Type = "P30",
             Price = 100M,
             Stock = 20,
-            Tags = [cool, hot]
         };
         Phone galaxy = new()
         {
@@ -33,7 +32,6 @@ public static class DeveloperDatabaseSeedingExtensions
             Type = "Galaxy A52",
             Price = 200M,
             Stock = 25,
-            Tags = [cool]
         };
         Phone iPhone = new()
         {
@@ -41,7 +39,6 @@ public static class DeveloperDatabaseSeedingExtensions
             Type = "iPhone 11",
             Price = 500M,
             Stock = 0,
-            Tags = [hot]
         };
         Phone pixel = new()
         {
@@ -61,10 +58,12 @@ public static class DeveloperDatabaseSeedingExtensions
         List<Phone> phones = [p30, galaxy, iPhone, pixel, redmi];
         context.AddRange(phones);
         context.SaveChanges();
-        var phone = context.Phones.Include(p => p.Tags).Single(p => p.Id == p30.Id);
+        var phone = context.Phones.Include(p => p.Tags).Single(p => p.PhoneId == p30.PhoneId);
         Tag tag = context.Tags.Single(t => t.Id == cool.Id);
+        Tag tag2 = context.Tags.Single(t => t.Id == hot.Id);
 
-        phone.Tags.Add(tag);
+        context.PhoneTags.Add(new() { Phone = phone, Tag = tag });
+        context.PhoneTags.Add(new() { Phone = phone, Tag = tag2 });
         context.SaveChanges();
 
         //context.Tags.

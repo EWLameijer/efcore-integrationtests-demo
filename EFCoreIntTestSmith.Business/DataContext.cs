@@ -35,5 +35,6 @@ public class DataContext : DbContext
     {
         modelBuilder.Entity<Phone>().Property(x => x.Price).HasPrecision(9, 2);
         modelBuilder.Entity<Phone>().HasMany(e => e.Tags).WithMany();
+        modelBuilder.Entity<Phone>().Navigation(p => p.Tags).AutoInclude();
     }
 }

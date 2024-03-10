@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace EFCoreIntTestSmith.Business;
 
@@ -60,11 +59,6 @@ public static class DeveloperDatabaseSeedingExtensions
 
         List<Phone> phones = [p30, galaxy, iPhone, pixel, redmi];
         context.AddRange(phones);
-        context.SaveChanges();
-        var phone = context.Phones.Include(p => p.Tags).Single(p => p.Id == p30.Id);
-        Tag tag = context.Tags.Single(t => t.Id == cool.Id);
-
-        phone.Tags.Add(tag);
         context.SaveChanges();
 
         //context.Tags.

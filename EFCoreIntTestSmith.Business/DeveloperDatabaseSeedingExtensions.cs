@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace EFCoreIntTestSmith.Business;
 
@@ -13,26 +14,34 @@ public static class DeveloperDatabaseSeedingExtensions
         Brand google = new() { Name = "Google" };
         Brand xiaomi = new() { Name = "Xiaomi" };
 
+        Tag cool = new() { Description = "cool" };
+        Tag hot = new() { Description = "hot" };
+        context.Add(cool);
+        context.Add(hot);
+
         Phone p30 = new()
         {
             Brand = huawei,
             Type = "P30",
             Price = 100M,
-            Stock = 20
+            Stock = 20,
+            Tags = [cool, hot]
         };
         Phone galaxy = new()
         {
             Brand = samsung,
             Type = "Galaxy A52",
             Price = 200M,
-            Stock = 25
+            Stock = 25,
+            Tags = [cool]
         };
         Phone iPhone = new()
         {
             Brand = apple,
             Type = "iPhone 11",
             Price = 500M,
-            Stock = 0
+            Stock = 0,
+            Tags = [hot]
         };
         Phone pixel = new()
         {
@@ -49,8 +58,16 @@ public static class DeveloperDatabaseSeedingExtensions
             Stock = 3
         };
 
-        List<Phone> phones = new() { p30, galaxy, iPhone, pixel, redmi };
+        List<Phone> phones = [p30, galaxy, iPhone, pixel, redmi];
         context.AddRange(phones);
         context.SaveChanges();
+        var phone = context.Phones.Include(p => p.Tags).Single(p => p.Id == p30.Id);
+        Tag tag = context.Tags.Single(t => t.Id == cool.Id);
+
+        phone.Tags.Add(tag);
+        context.SaveChanges();
+
+        //context.Tags.
+        context.ChangeTracker.Clear();
     }
 }

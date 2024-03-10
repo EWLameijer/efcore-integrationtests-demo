@@ -3,6 +3,7 @@ using EFCoreIntTestSmith.Business;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCoreIntTestSmith.Business.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240310085757_extra-tags-attempt")]
+    partial class extratagsattempt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,7 +67,7 @@ namespace EFCoreIntTestSmith.Business.Migrations
 
                     b.HasIndex("BrandId");
 
-                    b.ToTable("Phones");
+                    b.ToTable("Phone");
                 });
 
             modelBuilder.Entity("EFCoreIntTestSmith.Business.Tag", b =>
@@ -81,7 +84,7 @@ namespace EFCoreIntTestSmith.Business.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tag");
                 });
 
             modelBuilder.Entity("PhoneTag", b =>

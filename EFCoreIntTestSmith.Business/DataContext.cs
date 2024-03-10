@@ -1,5 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace EFCoreIntTestSmith.Business;
 
@@ -9,6 +9,8 @@ public class DataContext : DbContext
     public DbSet<Brand> Brands { get; set; } = null!;
 
     public DbSet<Phone> Phones { get; set; } = null!;
+
+    public DbSet<Tag> Tags { get; set; } = null!;
 
     public DataContext()
     { }
@@ -32,5 +34,6 @@ public class DataContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Phone>().Property(x => x.Price).HasPrecision(9, 2);
+        modelBuilder.Entity<Phone>().HasMany(e => e.Tags).WithMany();
     }
 }
